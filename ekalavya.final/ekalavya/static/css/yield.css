@@ -1,0 +1,350 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    border-bottom: 3px solid black;
+}
+
+.logo {
+    font-size: 25px;
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+nav a {
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 35px;
+    transition: .3s;
+}
+
+nav a:hover,
+nav a.active {
+    color: white;
+}
+
+.profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 80%;
+    object-fit: cover;
+}
+
+.sub-menu-wrap {
+    position: absolute;
+    top: 100%;
+    right: 1%;
+    width: 250px;
+    height: 500px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+
+.sub-menu-wrap.open-menu {
+    max-height: 400px;
+}
+
+.sub-menu {
+    padding: 20px;
+    margin: 1px;
+}
+
+.sub-menu-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    margin: 12px 0;
+}
+
+.sub-menu-link p {
+    width: 100%;
+}
+
+.sub-menu-link img {
+    width: 40px;
+    background: #e5e5e5;
+    border-radius: 50%;
+    padding: 8px;
+    margin-right: 15px;
+}
+
+.sub-menu-link span {
+    font-size: 22px;
+    transition: transform 0.5s;
+}
+
+.sub-menu-link:hover span {
+    transform: translateX(5px);
+}
+
+.sub-menu-link:hover p {
+    font-weight: 600;
+    font-weight: bold;
+}
+
+.main {
+    width: 100%;
+    min-height: 100vh;
+    background-size: cover;
+    background-position: center;
+    padding: 40px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    height: 3rem;
+    width: 15rem;
+    background: hsl(159, 57%, 49%);
+    outline: none;
+    border: black;
+    color: black;
+    font-size: 2rem;
+    margin: 1rem;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 0;
+    position: absolute;
+    margin-right: 50%;
+
+}
+
+.btn::before,
+.btn::after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #1D976C;
+    z-index: -1;
+    transition: all 0.5s cubic-bezier(.37, 1.14, .26, 1.24);
+}
+
+.btn::before {
+    clip-path: polygon(0 0, 0 0, 0 0);
+}
+
+.btn:hover:before {
+    clip-path: polygon(0 0, 0 100%, 100% 0);
+}
+
+.btn::after {
+    clip-path: polygon(100% 100%, 100% 100%, 100% 100%);
+
+}
+
+.btn:hover:after {
+    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+
+}
+
+.container1 {
+    position: absolute;
+    top: 120px;
+    left: 75px;
+    text-align: left;
+    z-index: 1;
+}
+
+.container1 h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+#get-location-button {
+    font-size: 1.5rem;
+}
+
+.weather-info {
+    position: absolute;
+    top:27%;
+    left:40%; 
+    transform: translateY(-50%);
+    text-align: left;
+}
+.container2{
+    position: absolute;
+    top:45%;
+    left:75px;
+    text-align: left;
+    z-index: 1;
+}
+.container2 h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.img-area {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    background: grey;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    left:20%
+}
+
+.img-area .icon {
+    font-size: 50px;
+}
+
+.img-area h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.img-area p {
+    color: #999;
+    font-size: 12px;
+}
+
+.img-area p span {
+    font-weight: 600;
+}
+
+.img-area img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 100;
+}
+
+.img-area::before {
+    content: attr(data-img);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    color: #fff;
+    font-weight: 500;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: all .3s ease;
+    z-index: 200;
+}
+
+.img-area.active:hover::before {
+    opacity: 1;
+}
+
+.select-image {
+    height: 3rem;
+    width: 15rem;
+    background: hsl(159, 57%, 49%);
+    outline: none;
+    border: black;
+    color: black;
+    font-size: 2rem;
+    margin: 1rem;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 0;
+    position: absolute;
+    margin-right: 50%;
+    left:10%;
+}
+
+.select-image::before,
+.select-image::after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #1D976C;
+    z-index: -1;
+    transition: all 0.5s cubic-bezier(.37, 1.14, .26, 1.24);
+}
+
+.select-image::before {
+    clip-path: polygon(0 0, 0 0, 0 0);
+}
+
+.select-image:hover:before {
+    clip-path: polygon(0 0, 0 100%, 100% 0);
+}
+
+.select-image::after {
+    clip-path: polygon(100% 100%, 100% 100%, 100% 100%);
+
+}
+
+.select-image:hover:after {
+    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+
+}
+#select-img-button {
+    font-size: 1.5rem;
+}
+.soil-info {
+    position: absolute;
+    top:62%;
+    left:40%; 
+    transform: translateY(-50%);
+    text-align: left;
+}
+.container3{
+    position: absolute;
+    top:84%;
+    left:75px;
+    text-align: left;
+    z-index: 1;
+}
+.container3 h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+#landAreaDropdown{
+    position: absolute;
+    top:19%;
+    left:120%;
+}
+#submit{
+    position: absolute;
+    top:1px;
+    left:400%;
+    font-size: 1.5rem;
+}
+.btn #submit{
+    background: #1D976C;
+}

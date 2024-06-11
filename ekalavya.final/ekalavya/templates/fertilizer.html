@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">"
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <title>graphs</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"> -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #56deae;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.9;
+        }
+
+        header {
+            background-image: url('../static/img/Mojito.jpg');
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 120px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background-color: #1D976C;
+        }
+
+        .logo {
+            font-size: 25px;
+            color: black;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+
+        nav a {
+            font-size: 18px;
+            color: black;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 35px;
+            transition: .3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: white;
+        }
+
+        .profile {
+            width: 40px;
+            height: 40px;
+            border-radius: 80%;
+            object-fit: cover;
+        }
+
+        .sub-menu-wrap {
+            position: absolute;
+            top: 100%;
+            right: 1%;
+            width: 250px;
+            height: 500px;
+            max-height: 0px;
+            overflow: hidden;
+            transition: max-height 0.5s;
+        }
+
+        .sub-menu-wrap.open-menu {
+            max-height: 400px;
+        }
+
+        .sub-menu {
+            background: #1D976C;
+            padding: 20px;
+            margin: 1px;
+        }
+
+        .sub-menu-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+            margin: 12px 0;
+        }
+
+        .sub-menu-link p {
+            width: 100%;
+        }
+
+        .sub-menu-link img {
+            width: 40px;
+            background: #e5e5e5;
+            border-radius: 50%;
+            padding: 8px;
+            margin-right: 15px;
+        }
+
+        .sub-menu-link span {
+            font-size: 22px;
+            transition: transform 0.5s;
+        }
+
+        .sub-menu-link:hover span {
+            transform: translateX(5px);
+        }
+
+        .sub-menu-link:hover p {
+            font-weight: 600;
+            font-weight: bold;
+        }
+
+        .container2 {
+            max-width: 400px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 50px auto 0;
+            margin-top: 7%;
+            margin-bottom: 5%;
+            margin-left: 55%;
+        }
+
+        #crop-dropdown {
+            padding: 8px 12px;
+            font-size: 16px;
+            border: 1px solid #130f0f;
+            border-radius: 5px;
+            background-color: hsl(159, 57%, 49%);
+            width: 200px;
+            /* Adjust width as needed */
+            margin-bottom: 20px;
+        }
+
+        /* Style for dropdown options */
+        .crop-dropdown-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .crop-dropdown-container label {
+            margin-right: 10px;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .crop-dropdown-container select {
+            padding: 8px 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            width: 200px;
+        }
+
+
+        .img-area {
+            position: relative;
+            width: 200px;
+            height: 120px;
+            background: grey;
+            margin-bottom: 10px;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .img-area .icon {
+            font-size: 50px;
+        }
+
+        .img-area h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .img-area p {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .img-area p span {
+            font-weight: 600;
+        }
+
+        .img-area img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 100;
+        }
+
+        .img-area::before {
+            content: attr(data-img);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .5);
+            color: #fff;
+            font-weight: 500;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            opacity: 0;
+            transition: all .3s ease;
+            z-index: 200;
+        }
+
+        .img-area.active:hover::before {
+            opacity: 1;
+        }
+
+        .select-image {
+            height: 3.5rem;
+            width: 2rem;
+            background: hsl(159, 57%, 49%);
+            outline: none;
+            border: black;
+            color: black;
+            font-size: 1rem;
+            margin: 1rem;
+            cursor: pointer;
+            overflow: hidden;
+            z-index: 0;
+            position: absolute;
+            margin-right: 50%;
+
+        }
+
+        .select-image::before,
+        .select-image::after {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #1D976C;
+            z-index: -1;
+            transition: all 0.5s cubic-bezier(.37, 1.14, .26, 1.24);
+        }
+
+        .select-image::before {
+            clip-path: polygon(0 0, 0 0, 0 0);
+        }
+
+        .select-image:hover:before {
+            clip-path: polygon(0 0, 0 100%, 100% 0);
+        }
+
+        .select-image::after {
+            clip-path: polygon(100% 100%, 100% 100%, 100% 100%);
+
+        }
+
+        .select-image:hover:after {
+            clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+
+        }
+
+        .select-image {
+            height: 3.5rem;
+            width: 20rem;
+            background: hsl(159, 57%, 49%);
+            outline: none;
+            border: black;
+            color: black;
+            font-size: 1.5rem;
+            margin: 1rem;
+            cursor: pointer;
+            overflow: hidden;
+            z-index: 0;
+            position: relative;
+        }
+
+        .submit-button {
+            height: 3.5rem;
+            width: 20rem;
+            background: hsl(159, 57%, 49%);
+            outline: none;
+            border: black;
+            color: black;
+            font-size: 1.5rem;
+            margin: 1rem;
+            cursor: pointer;
+            overflow: hidden;
+            z-index: 0;
+            position: relative;
+        }
+
+        .pesticide-info {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .pesticide-info label {
+            font-size: 20px;
+            margin-right: 10px;
+            font-weight: 500;
+        }
+
+        .pesticide-info input[type="text"] {
+            padding: 8px 12px;
+            font-size: 16px;
+            border: 1px solid hwb(0 4% 96%);
+            background: hsl(159, 57%, 49%);
+            border-radius: 5px;
+            width: 50%;
+            border: none;
+            box-sizing: border-box;
+        }
+
+        .new-media {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        #video-area {
+            width: 483px;
+            height: 300px;
+            padding: 30px;
+            background: #fff;
+            text-align: center;
+            border-radius: 20px;
+        }
+
+        #image-area {
+            width: 500px;
+            height: 400px;
+            padding: 30px;
+            background: #fff;
+            text-align: center;
+            border-radius: 20px;
+        }
+
+        #video-view,
+        #img-view {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            border: 2px dashed #bbb5ff;
+            background: #ecf4f3;
+            background-position: center;
+            background-size: cover;
+        }
+
+        #img-view span {
+            display: block;
+            font-size: 12px;
+            color: #777;
+            margin-top: 15px;
+        }
+
+        #image-area {
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #img-view {
+            position: relative;
+        }
+
+        #img-view img {
+            display: block;
+        }
+
+        #img-view div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #333;
+        }
+
+        #img-view p {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        #img-view span {
+            display: block;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .container2 {
+            max-width: 400px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            /* This will center the container horizontally */
+            margin-top: 7%;
+            /* Adjust as needed */
+            margin-bottom: 5%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="google_translate_element"></div>
+
+    <header>
+        <a href="#" class="logo"><i class="fas fa-seedling"></i>Cultivo</a>
+        <nav>
+            <a href="#home"><i class="fas fa-home" style="color: black;"></i> Home</a>
+            <a href="#about"><i class="fas fa-info-circle" style="color: black;"></i> About</a>
+            <a href="#services" class="active"><i class="fas fa-layer-group" style="color: black;"></i> Services</a>
+            <a href="#contactus"><i class="fas fa-address-book" style="color: black;"></i> Contact Us</a>
+            <a><img src="{{ url_for('static', filename='img/user.png') }}" class="profile"></a>
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <a href="#" class="sub-menu-link">
+                        <img src="{{ url_for('static', filename='img/user.png') }}">
+                        <p>Edit Profile</p>
+                        <span>></span>
+                    </a>
+                    <a href="password.html" class="sub-menu-link">
+                        <img src="{{ url_for('static', filename='img/setting.png') }}">
+                        <p>Settings</p>
+                        <span>></span>
+                    </a>
+                    <a href="#" class="sub-menu-link">
+                        <img src="{{ url_for('static', filename='img/help.png') }}">
+                        <p>Help & Support</p>
+                        <span>></span>
+                    </a>
+                    <a href="open.html" class="sub-menu-link">
+                        <img src="{{ url_for('static', filename='img/logout.png') }}">
+                        <p>Logout</p>
+                        <span>></span>
+                    </a>
+                </div>0
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="container2">
+        <form method="POST" action="{{ url_for('fertpredict') }}" enctype="multipart/form-data">
+            <div class="crop-dropdown-container">
+                <label for="crop-dropdown">Crop Name:</label>
+                <select id="crop-dropdown" name="cropname">
+                    <!-- Options will be populated dynamically using JavaScript -->
+                </select>
+            </div>
+            <script>
+                const cropNames = ["--select crop--", "rice",
+                    "maize",
+                    "chickpea",
+                    "kidneybeans",
+                    "pigeonpeas",
+                    "mothbeans",
+                    "mungbean",
+                    "blackgram",
+                    "lentil",
+                    "pomegranate",
+                    "banana",
+                    "mango",
+                    "grapes",
+                    "watermelon",
+                    "muskmelon",
+                    "apple",
+                    "orange",
+                    "papaya",
+                    "coconut",
+                    "cotton",
+                    "jute",
+                    "coffee"]
+                // Get the dropdown element
+                const dropdown = document.getElementById('crop-dropdown');
+
+                // Populate the dropdown with crop names
+                cropNames.forEach(cropName => {
+                    const option = document.createElement('option');
+                    option.text = cropName;
+                    dropdown.add(option);
+                });
+
+            </script>
+
+            <h2>Upload Soil Image:</h2>
+            <p id="image-link-paragraph" hidden></p>
+            <label for="image-input-file" id="image-area" style="width: 250px; height: 250px;">
+                <input type="file" accept="image/*" id="image-input-file" name="file" hidden>
+                <div id="img-view"
+                    style="width: 100%; height: 100%; border: 1px solid #ccc; position: relative; overflow: hidden;">
+                    <img src="{{ url_for('static', filename='img/camera.jpg') }}" alt="camera"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </label>
+
+
+            <!-- image script -->
+            <script>
+                const imageInputFile = document.getElementById("image-input-file");
+                const imgView = document.getElementById("img-view");
+                const submitButton = document.getElementById("submit-button");
+
+                imageInputFile.addEventListener("change", uploadImage);
+
+                function uploadImage() {
+                    const file = imageInputFile.files[0];
+                    const formData = new FormData();
+                    formData.append("file", file);
+
+                    const reader = new FileReader();
+
+                    reader.onload = function (event) {
+                        const img = new Image();
+                        img.src = event.target.result;
+                        img.alt = "Uploaded Image";
+                        img.style.width = "200px";
+
+                        imgView.innerHTML = "";
+                        imgView.appendChild(img);
+                    };
+
+                    reader.readAsDataURL(file);
+
+                    fetch("/predict", {
+                        method: "POST",
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById("soilph").textContent = "Soil pH: " + data['pH'];
+                            document.getElementById("soiltype").textContent = "Soil Type: " + data['Soil_Type'];
+                            document.getElementById("nitrogencontent").textContent = "Nitrogen Content: " + data['Nitrogen'];
+                            document.getElementById("phosphoruscontent").textContent = "Phosphorus Content: " + data['Phosphorous'];
+                            document.getElementById("potassiumcontent").textContent = "Potassium Content: " + data['Potassium'];
+                            document.getElementById("result-container").style.display = "block";
+
+                            // Set hidden input field values
+                            document.getElementById("soilph").value = data['pH'];
+                            document.getElementById("soiltype").value = data['Soil_Type'];
+                            document.getElementById("nitrogencontent").value = data['Nitrogen'];
+                            document.getElementById("phosphoruscontent").value = data['Phosphorous'];
+                            document.getElementById("potassiumcontent").value = data['Potassium'];
+                        })
+
+                        .catch(error => {
+                            console.error("Error:", error);
+                        });
+                }
+            </script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+</script>
+<script>
+    googleTranslateElementInit();
+</script>
+            <!-- Submit button -->
+            <button id="submit-button" class="submit-button">Submit</button>
+    
+    <div class="soil-info" id="result-container" style="display: none;">
+        <div class="soil-parameter-group">
+            <label for="soilph" hidden>Soil pH:</label>
+            <input id="soilph" name="soil_ph" hidden>
+        </div>
+
+        <div class="soil-parameter-group">
+            <label for="soiltype" hidden>Soil Type:</label>
+            <input id="soiltype" name="soil_type" hidden>
+        </div>
+        <div class="soil-parameter-group">
+            <label for="nitrogencontent" hidden>Nitrogen Content:</label>
+            <input id="nitrogencontent" name="nitrogen_content" hidden>
+        </div>
+
+        <div class="soil-parameter-group">
+            <label for="phosphoruscontent" hidden>Phosphorus Content:</label>
+            <input id="phosphoruscontent" name="phosphorus_content" hidden>
+        </div>
+
+        <div class="soil-parameter-group">
+            <label for="potassiumcontent" hidden>Potassium Content:</label>
+            <input id="potassiumcontent" name="potassium_content" hidden>
+        </div>
+
+    </div>
+    </div>
+</body>
+
+</html>

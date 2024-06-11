@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/yield.css') }}">
+    <style>
+        /* video */
+        .new-media {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        #video-area {
+            width: 483px;
+            height: 300px;
+            padding: 30px;
+            background: #fff;
+            text-align: center;
+            border-radius: 20px;
+        }
+
+        #image-area {
+            width: 500px;
+            height: 400px;
+            padding: 30px;
+            background: #fff;
+            text-align: center;
+            border-radius: 20px;
+        }
+
+
+        #img-view {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            border: 2px dashed #bbb5ff;
+            background: #ecf4f3;
+            background-position: center;
+            background-size: cover;
+        }
+
+        #img-view img {
+            width: 100px;
+            margin-top: 25px;
+        }
+
+        #video-view span {
+            display: block;
+            font-size: 12px;
+            color: #777;
+
+        }
+
+        #img-view span {
+            display: block;
+            font-size: 12px;
+            color: #777;
+            margin-top: 15px;
+        }
+
+        #image-area {
+            width: 250px;
+            height: 250px;
+            padding: 30px;
+            background: #fff;
+            text-align: center;
+            border-radius: 20px;
+        }
+
+        #img-view {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            border: 2px dashed #bbb5ff;
+            background: #ecf4f3;
+            background-position: center;
+            background-size: cover;
+            overflow: hidden;
+        }
+
+
+        #img-view img {
+            display: block;
+        }
+
+        #img-view div {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #333;
+        }
+
+        #img-view p {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        #img-view span {
+            display: block;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .container3 {
+            top: 90%;
+        }
+
+        .weather-parameter-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .weather-parameter-group h5 {
+            margin-right: 10px;
+        }
+
+        .weather-parameter-group .weather-parameter {
+            flex: 1;
+        }
+
+        .weather-parameter-group .weather-parameter span {
+            margin-left: 5px;
+        }
+
+        header {
+            background-image: url(../static/img/Mojito.jpg);
+        }
+
+        .weather-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .weather-parameter-group {
+            flex: 1 1 calc(50% - 10px);
+            margin-bottom: 10px;
+        }
+
+        .container4 {
+            margin-top: 20px;
+        }
+
+        .soil-parameter-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .soil-parameter-group label {
+            width: 150px;
+            margin-right: 10px;
+        }
+
+        .container5 {
+            margin-top: 20px;
+        }
+
+        .weather-parameter-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .weather-parameter-group label {
+            width: 150px;
+            margin-right: 10px;
+        }
+        .main{
+            background-color: #1d976c;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="google_translate_element"></div>
+
+    <header>
+        <a href="#" class="logo"><i class="fas fa-seedling"></i>Cultivo</a>
+        <nav>
+            <a href="#home"><i class="fas fa-home" style="color: black;"></i> Home</a>
+            <a href="#about"><i class="fas fa-info-circle" style="color: black;"></i> About</a>
+            <a href="#services" class="active"><i class="fas fa-layer-group" style="color: black;"></i> Services</a>
+            <a href="#contactus"><i class="fas fa-address-book" style="color: black;"></i> Contact Us</a>
+            <a><img src="{{ url_for('static', filename='img/user.png') }}" class="profile"></a>
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <a href="#" class="sub-menu-link">
+                        <img src="{{ url_for('static', filename='img/user.png') }}">
+                        <p>Edit Profile</p>
+                        <span>></span>
+                    </a>
+                    <a href="password.html" class="sub-menu-link">
+                        <img src="{{ url_for('static', filename='img/setting.png') }}">
+                        <p>Settings</p>
+                        <span>></span>
+                    </a>
+                    <a href="#" class="sub-menu-link">
+                        <img src="{{ url_for('static', filename='img/help.png') }}">
+                        <p>Help & Support</p>
+                        <span>></span>
+                    </a>
+                    <a href="open.html" class="sub-menu-link">
+                        <img src="{{ url_for('static', filename='img/logout.png') }}">
+                        <p>Logout</p>
+                        <span>></span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!--weather-->
+    <div class="main">
+        <div class="container1">
+            <h2>Get Your Location:</h2>
+            <button id="get-location-button" class="btn">Current Location</button>
+        </div>
+        <form method="POST" action="{{ url_for('result') }}" enctype="multipart/form-data">
+            <!--weather info-->
+            <div class="container5" style="max-width: 300px;">
+                <div class="weather-info" id="weather-info-container">
+                    <div class="weather-parameter-group">
+                        <label for="temperature"><b>Temperature:</b></label>
+                        <input type="text" id="temperature" name="temperature" readonly>
+                    </div>
+
+                    <div class="weather-parameter-group">
+                        <label for="humidity"><b>Humidity:</b></label>
+                        <input type="text" id="humidity" name="humidity" readonly>
+                    </div>
+
+                    <div class="weather-parameter-group">
+                        <label for="weather-condition"><b>Weather Condition:</b></label>
+                        <input type="text" id="weather-condition" name="weather_condition" readonly>
+                    </div>
+
+                    <div class="weather-parameter-group">
+                        <label for="rainfall"><b>Rainfall:</b></label>
+                        <input type="text" id="rainfall" name="rainfall" readonly>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--image-->
+
+            <!-- <form method="POST" action="/predict" enctype="multipart/form-data"> -->
+            <div class="container2" style="max-width: 300px;">
+                <h3>Upload Soil Image:</h3>
+                <p id="image-link-paragraph" hidden></p>
+                <label for="image-input-file" id="image-area" style="width: 250px; height: 250px;">
+                    <input type="file" accept="image/*" id="image-input-file" name="file" hidden>
+                    <div id="img-view"
+                        style="width: 100%; height: 100%; border: 1px solid #ccc; position: relative; overflow: hidden;">
+                        <img src="{{ url_for('static', filename='img/camera.jpg') }}" alt="camera"
+                            style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </label>
+            </div>
+
+            <!-- <button type="submit" id="submit-button" class="btn" value="predict">Submit</button> -->
+            <!-- </form> -->
+
+            <!-- image script -->
+            <script>
+                const imageInputFile = document.getElementById("image-input-file");
+                const imgView = document.getElementById("img-view");
+                const submitButton = document.getElementById("submit-button");
+
+                imageInputFile.addEventListener("change", uploadImage);
+
+                function uploadImage() {
+                    const file = imageInputFile.files[0];
+                    const formData = new FormData();
+                    formData.append("file", file);
+
+                    const reader = new FileReader();
+
+                    reader.onload = function (event) {
+                        const img = new Image();
+                        img.src = event.target.result;
+                        img.alt = "Uploaded Image";
+                        img.style.width = "200px";
+
+                        imgView.innerHTML = "";
+                        imgView.appendChild(img);
+                    };
+
+                    reader.readAsDataURL(file);
+
+                    fetch("/predict", {
+                        method: "POST",
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById("soilph").textContent = "Soil pH: " + data['pH'];
+                            document.getElementById("soiltype").textContent = "Soil Type: " + data['Soil_Type'];
+                            document.getElementById("nitrogencontent").textContent = "Nitrogen Content: " + data['Nitrogen'];
+                            document.getElementById("phosphoruscontent").textContent = "Phosphorus Content: " + data['Phosphorous'];
+                            document.getElementById("potassiumcontent").textContent = "Potassium Content: " + data['Potassium'];
+                            document.getElementById("result-container").style.display = "block";
+
+                            // Set hidden input field values
+                            document.getElementById("soilph").value = data['pH'];
+                            document.getElementById("soiltype").value = data['Soil_Type'];
+                            document.getElementById("nitrogencontent").value = data['Nitrogen'];
+                            document.getElementById("phosphoruscontent").value = data['Phosphorous'];
+                            document.getElementById("potassiumcontent").value = data['Potassium'];
+                        })
+
+                        .catch(error => {
+                            console.error("Error:", error);
+                        });
+                }
+            </script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script>
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+</script>
+<script>
+    googleTranslateElementInit();
+</script>
+
+            <div class="container4" style="max-width: 300px;">
+                <div class="soil-info" id="result-container" style="display: none;">
+                    <div class="soil-parameter-group">
+                        <label for="soilph"><b>Soil pH:</b></label>
+                        <input id="soilph" name="soil_ph">
+                    </div>
+
+                    <div class="soil-parameter-group">
+                        <label for="soiltype"><b>Soil Type:</b></label>
+                        <input id="soiltype" name="soil_type">
+                    </div>
+
+                    <div class="soil-parameter-group">
+                        <label for="nitrogencontent"><b>Nitrogen Content:</b></label>
+                        <input id="nitrogencontent" name="nitrogen_content">
+                    </div>
+
+                    <div class="soil-parameter-group">
+                        <label for="phosphoruscontent"><b>Phosphorus:</b></label>
+                        <input id="phosphoruscontent" name="phosphorus_content">
+                    </div>
+
+                    <div class="soil-parameter-group">
+                        <label for="potassiumcontent"><b>Potassium:</b></label>
+                        <input id="potassiumcontent" name="potassium_content">
+                    </div>
+                </div>
+            </div>
+            <!--area-->
+
+            <div class="container3">
+                <h3>Enter Area:</h3>
+                <select id="landAreaDropdown" name="land_area">
+                    <option>-- Select --</option>
+                    <option value="100">100 square meters</option>
+                    <option value="250">250 square meters</option>
+                    <option value="500">500 square meters</option>
+                    <option value="1000">1000 square meters</option>
+                    <option value="2500">2500 square meters</option>
+                    <option value="5000">5000 square meters</option>
+                    <option value="1">1 hectare (10,000 square meters)</option>
+                    <option value="2">2 hectares (20,000 square meters)</option>
+                    <option value="5">5 hectares (50,000 square meters)</option>
+                    <option value="10">10 hectares (100,000 square meters)</option>
+                </select>
+                <!-- <button id="submit" class="btn">Predict your crop</button> -->
+            </div>
+            <button type="submit" id="submit-button" class="btn" style="top: 87%; font-size:x-large;">Predict</button>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='js/yield.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/yield.js') }}></script>
+</body>
+
+</html>
+</body>
+
+</html>

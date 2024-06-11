@@ -1,0 +1,317 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    background-color: #56deae;
+    background-image: linear-gradient(#b5f5dea6, rgba(156, 251, 218, 0.65)),url('https://ehsrc.public-health.uiowa.edu/wp-content/uploads/2020/07/img894813.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.9;
+}
+
+header {
+    background-image: url('C:\Users\srila\Downloads\mojito.jpg');
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background-color: #1D976C;
+}
+
+.logo {
+    font-size: 25px;
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+
+nav a {
+    font-size: 18px;
+    color: black;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 35px;
+    transition: .3s;
+}
+
+nav a:hover,
+nav a.active {
+    color: white;
+}
+.profile {
+    width: 40px; 
+    height: 40px;
+    border-radius: 80%; 
+    object-fit: cover; 
+}
+.sub-menu-wrap{
+    position: absolute;
+    top: 100%;
+    right:1%;
+    width: 250px;
+    height: 500px;
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+}
+.sub-menu-wrap.open-menu{
+    max-height: 400px;
+}
+.sub-menu{
+    background:#1D976C;
+    padding: 20px;
+    margin: 1px;
+}
+.sub-menu-link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    margin: 12px 0;
+}
+.sub-menu-link p{
+    width: 100%;
+}
+.sub-menu-link img{
+    width: 40px;
+    background: #e5e5e5;
+    border-radius: 50%;
+    padding: 8px;
+    margin-right: 15px;
+}
+.sub-menu-link span{
+    font-size: 22px;
+    transition: transform 0.5s;
+}
+.sub-menu-link:hover span{
+    transform: translateX(5px);
+}
+.sub-menu-link:hover p{
+    font-weight: 600;
+    font-weight: bold;
+}
+.container2 {
+    max-width: 400px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto 0;
+    margin-top: 7%;
+    margin-bottom: 5%;
+    margin-left: 55%;
+}
+#crop-dropdown {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #130f0f;
+    border-radius: 5px;
+    background-color: hsl(159, 57%, 49%);
+    width: 200px; /* Adjust width as needed */
+    margin-bottom: 20px;
+}
+
+/* Style for dropdown options */
+.crop-dropdown-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.crop-dropdown-container label {
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.crop-dropdown-container select {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 200px;
+}
+
+
+.img-area {
+    position: relative;
+    width: 200px;
+    height: 120px;
+    background: grey;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.img-area .icon {
+    font-size: 50px;
+}
+
+.img-area h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.img-area p {
+    color: #999;
+    font-size: 12px;
+}
+
+.img-area p span {
+    font-weight: 600;
+}
+
+.img-area img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 100;
+}
+
+.img-area::before {
+    content: attr(data-img);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    color: #fff;
+    font-weight: 500;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: all .3s ease;
+    z-index: 200;
+}
+
+.img-area.active:hover::before {
+    opacity: 1;
+}
+
+.select-image {
+    height: 3.5rem;
+    width: 2rem;
+    background: hsl(159, 57%, 49%);
+    outline: none;
+    border: black;
+    color: black;
+    font-size: 1rem;
+    margin: 1rem;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 0;
+    position: absolute;
+    margin-right: 50%;
+
+}
+
+.select-image::before,
+.select-image::after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #1D976C;
+    z-index: -1;
+    transition: all 0.5s cubic-bezier(.37, 1.14, .26, 1.24);
+}
+
+.select-image::before {
+    clip-path: polygon(0 0, 0 0, 0 0);
+}
+
+.select-image:hover:before {
+    clip-path: polygon(0 0, 0 100%, 100% 0);
+}
+
+.select-image::after {
+    clip-path: polygon(100% 100%, 100% 100%, 100% 100%);
+
+}
+
+.select-image:hover:after {
+    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+
+}
+
+.select-image {
+    height: 3.5rem;
+    width: 20rem;
+    background: hsl(159, 57%, 49%);
+    outline: none;
+    border: black;
+    color: black;
+    font-size: 1.5rem;
+    margin: 1rem;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 0;
+    position: relative;
+}
+.submit-button {
+    height: 3.5rem;
+    width: 20rem;
+    background: hsl(159, 57%, 49%);
+    outline: none;
+    border: black;
+    color: black;
+    font-size: 1.5rem;
+    margin: 1rem;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 0;
+    position: relative;
+}
+
+.pesticide-info {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.pesticide-info label {
+    font-size: 20px;
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.pesticide-info input[type="text"] {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid hwb(0 4% 96%);
+    background:hsl(159, 57%, 49%);
+    border-radius: 5px;
+    width: 50%;
+    border: none;
+    box-sizing: border-box;
+}

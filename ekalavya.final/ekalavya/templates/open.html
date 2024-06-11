@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/open.css') }}">
+    <style>
+        #google_translate_element {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 9999;
+           
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="con">
+        <!-- Google Translate button -->
+        <div id="google_translate_element"></div>
+
+        <img class="wave" src="{{ url_for('static', filename='img/wave.png') }}">
+        <div class="container">
+            <div class="img">
+                <img src="{{ url_for('static', filename='img/bg.svg') }}">
+            </div>
+            <div class="login-content">
+                <form method="POST" action="{{ url_for('enter')}}" enctype="multipart/form-data">
+                    <img class=logo src="{{ url_for('static', filename='img/logo.png') }}">
+                    <p class="title"><b>The richness of the soil determines the wealth of the nation!</b></p>
+                    <input type="submit" id="enterButton" class="btn" value="enter">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Google Translate script -->
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+        // Function to show the language selection form when the page loads
+        window.onload = function() {
+            document.getElementById("languageForm").style.display = "block";
+        };
+
+        // Function to translate the page when the user selects a language
+        function translatePage() {
+            var language = document.getElementById("languageSelect").value;
+            googleTranslateElementInit(language);
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+    </script>
+    <script>
+        googleTranslateElementInit();
+    </script>
+</body>
+<style>
+    .con {
+        background-image: linear-gradient(rgba(29,151,108,0.65), rgba(29,151,108,0.65)), url('{{ url_for("static", filename="img/openbg.jpg") }}');
+    }
+</style>
+</html>
